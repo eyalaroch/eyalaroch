@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jumping Game</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: black;
+    }
+
+    #platform {
+        position: absolute;
+        width: 300px;
+        height: 20px;
+        background-color: green;
+        left: 50%;
+        top: 70%;
+        transform: translateX(-50%);
+    }
+
+    #player {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: blue;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: bottom 0.5s;
+    }
+</style>
+</head>
+<body>
+<div id="platform"></div>
+<div id="player"></div>
+<button onclick="jump()">Jump</button>
+
+<script>
+    // Variables to store player and platform elements
+    var player = document.getElementById("player");
+    var platform = document.getElementById("platform");
+    
+    // Variable to count jumps
+    var jumpCount = 0;
+
+    // Function to handle player jump
+    function jump() {
+        // Get current position of the player and platform
+        var playerBottom = parseInt(window.getComputedStyle(player).getPropertyValue("bottom"));
+        var platformTop = parseInt(window.getComputedStyle(platform).getPropertyValue("top"));
+
+        // Check if the player is on the platform
+        if (playerBottom <= (platformTop + 20)) { // Considering platform height as 20px
+            // Jump by increasing player's bottom position
+            player.style.bottom = (playerBottom + 200) + "px"; // Jump height is 200px
+        }
+
+        // Count jumps and reset player's position after 6 jumps
+        jumpCount++;
+        if (jumpCount >= 6) {
+            jumpCount = 0;
+            player.style.bottom = "20px"; // Reset player's position to the bottom
+        }
+    }
+</script>
+</body>
+</html>
